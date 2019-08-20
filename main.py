@@ -21,7 +21,21 @@ def file_modification_day(file_name, file_path):
     decoded_file_path = os.fsdecode(file_path)
     modification_time = os.path.getmtime(f'{decoded_file_path}/{file_name}')
     mod_date = repr(datetime.datetime.fromtimestamp(modification_time))
-    return int(mod_date[27:29])
+    temp = ''
+    for ch in mod_date:
+        if ch != ',':
+            temp  = f'{temp}{ch}'
+    return int(str.strip(temp[25:27]))
+
+def file_modification_month(file_name, file_path):
+    decoded_file_path = os.fsdecode(file_path)
+    modification_time = os.path.getmtime(f'{decoded_file_path}/{file_name}')
+    mod_date = repr(datetime.datetime.fromtimestamp(modification_time))
+    temp = ''
+    for ch in mod_date:
+        if ch != ',':
+            temp  = f'{temp}{ch}'
+    return int(str.strip(temp[23:25]))
 
 def get_all_files(files_path):
     '''login_gdrive()'''
@@ -29,7 +43,7 @@ def get_all_files(files_path):
     for files in os.listdir(directory):
         filename = os.fsdecode(files)
         tmpDir = os.fsdecode(directory)
-        if filename.endswith(files_extensions) and abs(file_modification_day(filename, tmpDir) - int(datetime.datetime.today().strftime('%d'))) <= 5:
+        if filename.endswith(files_extensions) and abs(file_modification_day(filename, tmpDir) - int(datetime.datetime.today().strftime('%d'))) <= 5 and abs(file_modification_month(filename, tmpDir) - int(datetime.datetime.today().strftime('%m'))) == 0:
             drive_file_handler(f'{tmpDir}/{filename}')
 
 '''

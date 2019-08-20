@@ -106,3 +106,4 @@ venv.bak/
 
 #others
 client_secrets.json
+.vscode
