@@ -46,7 +46,7 @@ def get_all_files(files_path):
 
 
 def drive_file_handler(file_path):
-    folder_id = '1LypqyXyvfa9kwGptCI0PJoLk15ziOgBo'
+    folder_id = 'Your folder id'
     file_drive = drive.CreateFile({"title":file_path[21:],"parents":[{"kind":"drive#fileLink", "id": folder_id}]})
     file_drive.SetContentFile(file_path)
     file_drive.Upload()
